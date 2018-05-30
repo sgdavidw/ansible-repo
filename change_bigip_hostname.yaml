@@ -1,0 +1,18 @@
+---
+
+- name: Testing importing group and host vars via Tower
+  hosts: all
+  gather_facts: no
+  connection: local
+  vars:
+    bigip_admin_credentials: admin
+
+  tasks:
+    - name: Setting the hostname of the target BIGIP
+      bigip_hostname:
+        hostname: "{{ hostname }}"
+        provider:
+          user: admin
+          server: "{{ ansible_host }}"
+          password: "{{ bigip_admin_credentials }}"
+          validate_certs: no
